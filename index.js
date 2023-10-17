@@ -2,7 +2,7 @@ import  express from 'express';
 import cors from 'cors';
 import{ MongoClient, ServerApiVersion } from 'mongodb';
 const app = express();
-const port =process.env.PORT || 5000;
+const port =process.env.PORT ||5000;
 //middleware
 app.use(cors());
 app.use(express.json());
@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 // connect to mongodb server
 
 
-const uri = "mongodb+srv://Gizmo-Tech-World-server:Ng7RpN8TqCbKxDU2@cluster0.fo1holf.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://Gizmo-Tech-World:pzdryf73R3zx2GuC@cluster0.fo1holf.mongodb.net/?retryWrites=true&w=majority";
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -28,6 +28,20 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
+    //create a database
+  const database =  client.db( 'Gizmo-Tech-World-server'  );
+  const  BrandCollection = database.collection("brands");
+//insert data into database
+app .post ("/brands", async(req, res) =>{
+    const brand = req.body;
+    const result = await  BrandCollection.insertOne(brand);
+    res.send(result);
+})
+//show all data in sever site
+app.get ("/brands", async(req, res) =>{
+    const result = await  BrandCollection .find().toArray();
+    res.send(result);
+})
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
