@@ -31,6 +31,8 @@ async function run() {
     //create a database
   const database =  client.db( 'Gizmo-Tech-World-server'  );
   const  BrandCollection = database.collection("brands");
+  const  AppleCollection = database.collection("apple-products");
+  //brands api
 //insert data into database
 app .post ("/brands", async(req, res) =>{
     const brand = req.body;
@@ -41,6 +43,18 @@ app .post ("/brands", async(req, res) =>{
 app.get ("/brands", async(req, res) =>{
     const result = await  BrandCollection .find().toArray();
     res.send(result);
+    //Apple product api
+    //insert data into database
+    app.post("/apple-products", async(req, res) =>{
+        const appleProduct =req.body;
+        const result =  await AppleCollection.insertOne(appleProduct)
+        res.send(result);
+    });
+    //show all data in sever site
+    app.get ("/apple-products", async(req, res) =>{
+        const result = await  AppleCollection .find().toArray();
+        res.send(result);
+    })
 })
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
