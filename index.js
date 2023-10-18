@@ -34,6 +34,7 @@ async function run() {
    const onePlusCollection =client.db('Gizmo-Tech-World-server').collection("onePlus-products");
   const  SamsungCollection = client.db( 'Gizmo-Tech-World-server').collection("samsung-products");
   const  XiaomiCollection = client.db( 'Gizmo-Tech-World-server').collection("xiaomi-products");
+  const WaltonCollection = client.db('Gizmo-Tech-World-server').collection("walton-products");
   
   //brands api
 //insert data into database
@@ -72,7 +73,7 @@ app.get ("/brands", async(req, res) =>{
       res.send(result);
       
   });
-  //one plus product api 
+  //one plus products api 
   //insert data into database
   app.post("/onePlus-products", async(req, res) =>{
     const oneProduct =req.body;
@@ -85,7 +86,20 @@ app.get ("/onePlus-products", async(req, res) =>{
     res.send(result);
     
 });
-  
+  //walton products api
+  //insert data into database
+  app.post("/walton-products", async(req, res) =>{
+    const waltonProduct =req.body;
+    const result =  await WaltonCollection.insertOne(waltonProduct)
+    res.send(result);
+});
+//show all data in sever site
+app.get ("/walton-products", async(req, res) =>{
+    const result = await  WaltonCollection .find().toArray();
+    res.send(result);
+    
+});
+
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
