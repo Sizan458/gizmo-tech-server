@@ -35,6 +35,7 @@ async function run() {
   const  SamsungCollection = client.db( 'Gizmo-Tech-World-server').collection("samsung-products");
   const  XiaomiCollection = client.db( 'Gizmo-Tech-World-server').collection("xiaomi-products");
   const WaltonCollection = client.db('Gizmo-Tech-World-server').collection("walton-products");
+  const GoogleCollection = client.db('Gizmo-Tech-World-server').collection("google-products");
   
   //brands api
 //insert data into database
@@ -98,6 +99,19 @@ app.get ("/walton-products", async(req, res) =>{
     const result = await  WaltonCollection .find().toArray();
     res.send(result);
     
+});
+//google products api
+//insert data into database
+app.post("/google-products", async(req, res) =>{
+  const googleProduct =req.body;
+  const result =  await GoogleCollection.insertOne(googleProduct);
+  res.send(result);
+});
+//show all data in sever site
+app.get ("/google-products", async(req, res) =>{
+  const result = await  GoogleCollection .find().toArray();
+  res.send(result);
+  
 });
 
     // Connect the client to the server	(optional starting in v4.7)
