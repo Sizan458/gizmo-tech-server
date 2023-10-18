@@ -36,6 +36,7 @@ async function run() {
   const  XiaomiCollection = client.db( 'Gizmo-Tech-World-server').collection("xiaomi-products");
   const WaltonCollection = client.db('Gizmo-Tech-World-server').collection("walton-products");
   const GoogleCollection = client.db('Gizmo-Tech-World-server').collection("google-products");
+  const  RealmeCollection = client.db('Gizmo-Tech-World-server').collection("realme-products")
   
   //brands api
 //insert data into database
@@ -110,6 +111,19 @@ app.post("/google-products", async(req, res) =>{
 //show all data in sever site
 app.get ("/google-products", async(req, res) =>{
   const result = await  GoogleCollection .find().toArray();
+  res.send(result);
+  
+});
+//realme  products api
+//insert data into database
+app.post("/realme-products", async(req, res) =>{
+  const realmeProduct =req.body;
+  const result =  await RealmeCollection.insertOne(realmeProduct);
+  res.send(result);
+});
+//show all data in sever site
+app.get ("/realme-products", async(req, res) =>{
+  const result = await RealmeCollection .find().toArray();
   res.send(result);
   
 });
