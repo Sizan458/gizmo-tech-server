@@ -31,9 +31,10 @@ async function run() {
     //create a database
   const database =  client.db( 'Gizmo-Tech-World-server'  );
   const  BrandCollection = database.collection("brands");
-  const  AppleCollection = client.db( 'Gizmo-Tech-World-server' ).collection("apple-products");
+   const onePlusCollection =client.db('Gizmo-Tech-World-server').collection("onePlus-products");
   const  SamsungCollection = client.db( 'Gizmo-Tech-World-server').collection("samsung-products");
   const  XiaomiCollection = client.db( 'Gizmo-Tech-World-server').collection("xiaomi-products");
+  
   //brands api
 //insert data into database
 app .post ("/brands", async(req, res) =>{
@@ -45,18 +46,7 @@ app .post ("/brands", async(req, res) =>{
 app.get ("/brands", async(req, res) =>{
     const result = await  BrandCollection .find().toArray();
     res.send(result);
-    //Apple products api
-    //insert data into database
-    app.post("/apple-products", async(req, res) =>{
-        const appleProduct =req.body;
-        const result =  await AppleCollection.insertOne(appleProduct)
-        res.send(result);
-    });
-    //show all data in sever site
-    app.get ("/apple-products", async(req, res) =>{
-        const result = await  AppleCollection .find().toArray();
-        res.send(result);
-    })
+    
 })    //samsung products api 
       //insert data into database
       app.post("/samsung-products", async(req, res) =>{
@@ -80,7 +70,22 @@ app.get ("/brands", async(req, res) =>{
   app.get ("/xiaomi-products", async(req, res) =>{
       const result = await  XiaomiCollection .find().toArray();
       res.send(result);
+      
   });
+  //one plus product api 
+  //insert data into database
+  app.post("/onePlus-products", async(req, res) =>{
+    const oneProduct =req.body;
+    const result =  await onePlusCollection.insertOne(oneProduct)
+    res.send(result);
+});
+//show all data in sever site
+app.get ("/onePlus-products", async(req, res) =>{
+    const result = await  onePlusCollection .find().toArray();
+    res.send(result);
+    
+});
+  
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
