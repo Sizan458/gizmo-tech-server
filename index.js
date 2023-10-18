@@ -31,7 +31,8 @@ async function run() {
     //create a database
   const database =  client.db( 'Gizmo-Tech-World-server'  );
   const  BrandCollection = database.collection("brands");
-  const  AppleCollection = database.collection("apple-products");
+  const  AppleCollection = client.db( 'Gizmo-Tech-World-server' ).collection("apple-products");
+  const  SamsungCollection = client.db( 'Gizmo-Tech-World-server').collection("samsung-products");
   //brands api
 //insert data into database
 app .post ("/brands", async(req, res) =>{
@@ -43,7 +44,7 @@ app .post ("/brands", async(req, res) =>{
 app.get ("/brands", async(req, res) =>{
     const result = await  BrandCollection .find().toArray();
     res.send(result);
-    //Apple product api
+    //Apple products api
     //insert data into database
     app.post("/apple-products", async(req, res) =>{
         const appleProduct =req.body;
@@ -55,7 +56,18 @@ app.get ("/brands", async(req, res) =>{
         const result = await  AppleCollection .find().toArray();
         res.send(result);
     })
-})
+})    //samsung products api 
+      //insert data into database
+      app.post("/samsung-products", async(req, res) =>{
+        const samsungProduct =req.body;
+        const result =  await SamsungCollection.insertOne(samsungProduct)
+        res.send(result);
+    });
+    //show all data in sever site
+    app.get ("/samsung-products", async(req, res) =>{
+        const result = await  SamsungCollection .find().toArray();
+        res.send(result);
+    })
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
