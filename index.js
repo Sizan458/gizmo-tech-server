@@ -1,6 +1,6 @@
 import  express from 'express';
 import cors from 'cors';
-import{ MongoClient, ServerApiVersion } from 'mongodb';
+import{ MongoClient, ObjectId, ServerApiVersion } from 'mongodb';
 const app = express();
 const port =process.env.PORT ||5000;
 //middleware
@@ -50,7 +50,16 @@ app.get ("/brands", async(req, res) =>{
     const result = await  BrandCollection .find().toArray();
     res.send(result);
     
-})    //samsung products api 
+}) 
+// see data by id
+app.get ("/brands/:id", async(req, res) =>{
+  const id =req.params.id;
+  const query ={_id:new ObjectId(id)}
+  const result = await BrandCollection.findOne(query);
+ 
+  res.send(result);
+})
+   //samsung products api 
       //insert data into database
       app.post("/samsung-products", async(req, res) =>{
         const samsungProduct =req.body;
@@ -62,6 +71,15 @@ app.get ("/brands", async(req, res) =>{
         const result = await  SamsungCollection .find().toArray();
         res.send(result);
     });
+    // see data by id
+  app.get ("/samsung-products/:id", async(req, res) =>{
+    const id =req.params.id;
+    const query ={_id:new ObjectId(id)}
+    const result = await SamsungCollection.findOne(query);
+   
+    res.send(result);
+  })
+
     //xiaomi products api
     //insert data into database
     app.post("/xiaomi-products", async(req, res) =>{
@@ -74,6 +92,15 @@ app.get ("/brands", async(req, res) =>{
       const result = await  XiaomiCollection .find().toArray();
       res.send(result);
       
+  });
+
+  // see data by id
+  app.get ("/xiaomi-products/:id", async(req, res) =>{
+    const id =req.params.id;
+    const query ={_id:new ObjectId(id)}
+    const result = await XiaomiCollection.findOne(query);
+    
+    res.send(result);
   });
   //one plus products api 
   //insert data into database
@@ -88,6 +115,14 @@ app.get ("/onePlus-products", async(req, res) =>{
     res.send(result);
     
 });
+ // see data by id
+ app.get ("/onePlus-products/:id", async(req, res) =>{
+  const id =req.params.id;
+  const query ={_id:new ObjectId(id)}
+  const result = await onePlusCollection.findOne(query);
+  
+  res.send(result);
+});
   //walton products api
   //insert data into database
   app.post("/walton-products", async(req, res) =>{
@@ -95,11 +130,21 @@ app.get ("/onePlus-products", async(req, res) =>{
     const result =  await WaltonCollection.insertOne(waltonProduct)
     res.send(result);
 });
+
+
 //show all data in sever site
 app.get ("/walton-products", async(req, res) =>{
     const result = await  WaltonCollection .find().toArray();
     res.send(result);
     
+});
+// see data by id
+app.get ("/walton-products/:id", async(req, res) =>{
+  const id =req.params.id;
+  const query ={_id:new ObjectId(id)}
+  const result = await WaltonCollection.findOne(query);
+  
+  res.send(result);
 });
 //google products api
 //insert data into database
@@ -114,6 +159,14 @@ app.get ("/google-products", async(req, res) =>{
   res.send(result);
   
 });
+// see data by id
+app.get ("/google-products/:id", async(req, res) =>{
+  const id =req.params.id;
+  const query ={_id:new ObjectId(id)}
+  const result = await GoogleCollection.findOne(query);
+  
+  res.send(result);
+});
 //realme  products api
 //insert data into database
 app.post("/realme-products", async(req, res) =>{
@@ -126,6 +179,14 @@ app.get ("/realme-products", async(req, res) =>{
   const result = await RealmeCollection .find().toArray();
   res.send(result);
   
+});
+// see data by id
+app.get ("/realme-products/:id", async(req, res) =>{
+  const id =req.params.id;
+  const query ={_id:new ObjectId(id)}
+  const result = await RealmeCollection.findOne(query);
+  
+  res.send(result);
 });
 
     // Connect the client to the server	(optional starting in v4.7)
