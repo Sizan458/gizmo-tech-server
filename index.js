@@ -78,7 +78,18 @@ app.get ("/brands/:id", async(req, res) =>{
     const result = await SamsungCollection.findOne(query);
    
     res.send(result);
-  })
+  });
+  //delete the data  by id
+  app.delete( "/samsung-products/:id", async (req, res) =>{
+    const id = req.params.id;
+    const query = {
+      _id: new ObjectId(id),
+    };
+    const result = await SamsungCollection.deleteOne(query);
+    res.send(result);
+  });
+  // update a data 
+  
 
     //xiaomi products api
     //insert data into database
@@ -102,6 +113,15 @@ app.get ("/brands/:id", async(req, res) =>{
     
     res.send(result);
   });
+  //delete the data  by id
+  app.delete( "/xiaomi-products/:id", async (req, res) =>{
+    const id = req.params.id;
+    const query = {
+      _id: new ObjectId(id),
+    };
+    const result = await XiaomiCollection.deleteOne(query);
+    res.send(result);
+  });
   //one plus products api 
   //insert data into database
   app.post("/onePlus-products", async(req, res) =>{
@@ -123,6 +143,16 @@ app.get ("/onePlus-products", async(req, res) =>{
   
   res.send(result);
 });
+//delete the data  by id
+app.delete( "/onePlus-products/:id", async (req, res) =>{
+  const id = req.params.id;
+  const query = {
+    _id: new ObjectId(id),
+  };
+  const result = await onePlusCollection.deleteOne(query);
+  res.send(result);
+});
+
   //walton products api
   //insert data into database
   app.post("/walton-products", async(req, res) =>{
@@ -146,6 +176,15 @@ app.get ("/walton-products/:id", async(req, res) =>{
   
   res.send(result);
 });
+//delete the data  by id
+app.delete( "/walton-products/:id", async (req, res) =>{
+  const id = req.params.id;
+  const query = {
+    _id: new ObjectId(id),
+  };
+  const result = await WaltonCollection.deleteOne(query);
+  res.send(result);
+});
 //google products api
 //insert data into database
 app.post("/google-products", async(req, res) =>{
@@ -158,6 +197,15 @@ app.get ("/google-products", async(req, res) =>{
   const result = await  GoogleCollection .find().toArray();
   res.send(result);
   
+});
+//delete data by id
+app.delete( "/google-products/:id", async (req, res) =>{
+  const id = req.params.id;
+  const query = {
+    _id: new ObjectId(id),
+  };
+  const result = await GoogleCollection.deleteOne(query);
+  res.send(result);
 });
 // see data by id
 app.get ("/google-products/:id", async(req, res) =>{
@@ -186,6 +234,15 @@ app.get ("/realme-products/:id", async(req, res) =>{
   const query ={_id:new ObjectId(id)}
   const result = await RealmeCollection.findOne(query);
   
+  res.send(result);
+});
+//delete data by id
+app.delete( "/realme-products/:id", async (req, res) =>{
+  const id = req.params.id;
+  const query = {
+    _id: new ObjectId(id),
+  };
+  const result = await RealmeCollection.deleteOne(query);
   res.send(result);
 });
 
